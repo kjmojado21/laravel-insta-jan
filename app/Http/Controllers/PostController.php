@@ -47,7 +47,8 @@ class PostController extends Controller
         $this->post->user_id = Auth::user()->id;
         $this->post->description = $request->description;
         // convert image to text and save it to database : convert it into base:64 text
-        $this->post->image = 'data:image/' . $request->image->extension(). ';base:64,' . base64_encode(file_get_contents($request->image));
+        $this->post->image = 'data:image/' . $request->image->extension() .
+        ';base64,' . base64_encode(file_get_contents($request->image));
         // return $request->category;
         $this->post->save(); // it will generate ID after saving
 
