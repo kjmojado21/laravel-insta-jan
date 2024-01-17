@@ -1,5 +1,7 @@
 <div class="container p-0">
-    <img src="{{ $post->image }}" class="w-100" alt="">
+  <a href="{{route('post.show',$post->id)}}">
+    <img src="{{ $post->image }}" class="w-100" alt="image {{$post->id}}">
+  </a>
 </div>
 <div class="card-body">
     <div class="row align-items-center">
