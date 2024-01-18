@@ -24,5 +24,9 @@ Route::group(["middleware" => "auth"], function () {
     Route::get('/create/post',[PostController::class,'create'])->name('post.create');
     Route::post('/store/post',[PostController::class,'store'])->name('post.store');
     Route::get('/show/post/{id}',[PostController::class,'show'])->name('post.show');
+    Route::get('/edit/post/{id}',[PostController::class,'edit'])->name('post.edit');
+    Route::patch('/update/post/{id}',[PostController::class,'update'])->name('post.update');
+
+
 
 });

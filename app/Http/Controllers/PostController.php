@@ -47,7 +47,8 @@ class PostController extends Controller
         $this->post->user_id = Auth::user()->id;
         $this->post->description = $request->description;
         // convert image to text and save it to database : convert it into base:64 text
-        $this->post->image = 'data:image/' . $request->image->extension(). ';base:64,' . base64_encode(file_get_contents($request->image));
+        $this->post->image  = 'data:image/' . $request->image->extension() .
+        ';base64,' . base64_encode(file_get_contents($request->image));
 
 
         // return $request->category;
@@ -80,17 +81,51 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
         //
+
+        $all_categories = $this->category->all();
+        $post = $this->post->findOrFail($id);
+
+        $selected_categories = []; //we put the selected categories of this post
+        foreach($post->categoryPost as $category_post){
+            $selected_categories[] = $category_post->category_id;
+        }
+        return view('users.post.edit')
+                ->with('post',$post)
+                ->with('all_categories',$all_categories)
+                ->with('selected_categories',$selected_categories);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
         //
+
+
+        $post = $this->post->findOrFail($id);
+        $post->description = $request->description;
+        if($request->image){
+            $post->image  = 'data:image/' . $request->image->extension() .
+            ';base64,' . base64_encode(file_get_contents($request->image));
+        }
+
+        $post->save();
+
+        $post->categoryPost()->delete();
+
+        foreach($request->category as $category_id){
+            $category_post[] = ["category_id"=>$category_id];
+        }
+
+        $post->categoryPost()->createMany($category_post);
+
+        return redirect()->route('post.show',$id);
+
+
     }
 
     /**
