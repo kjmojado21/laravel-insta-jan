@@ -10,20 +10,20 @@
             <div class="modal-body">
                 <p>Are you sure to delete this post?</p>
                 <div class="mt-3">
-                    
+
                     <img src="{{$post->image}}" alt="" class="img-fluid">
                     <p class="text-muted mt-1">{{ $post->description }}</p>
                 </div>
             </div>
             <div class="modal-footer">
-               <form action="" method="post">
+               <form action="{{route('post.delete',$post->id)}}" method="post">
                 @csrf
                 @method('DELETE')
 
                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">
                     Cancel
                 </button>
-                <button type="button" class="btn btn-danger btn-sm">Save</button>
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                </form>
             </div>
         </div>
