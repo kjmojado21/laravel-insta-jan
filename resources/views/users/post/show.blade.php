@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title','Show post')
+@section('title', 'Show post')
 
 @section('content')
     <div class="row border shadow">
         <div class="col p-0 border-end">
-            <img src="{{ $post->image }}" alt="image {{$post->id}}" class="w-100">
+            <img src="{{ $post->image }}" alt="image {{ $post->id }}" class="w-100">
         </div>
         <div class="col-4 px-0 bg-white">
             <div class="card border-0">
@@ -35,26 +35,27 @@
                                 {{-- if you are the owner of the post. you can edit and delete --}}
                                 @if ($post->user_id == Auth::user()->id)
                                     <div class="dropdown-menu">
-                                        <a href="{{route('post.edit',$post->id)}}" class="dropdown-item">
+                                        <a href="{{ route('post.edit', $post->id) }}" class="dropdown-item">
                                             <i class="fa-regular fa-pen-to-square"></i> Edit
                                         </a>
-                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{$post->id}}" >
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal"
+                                            data-bs-target="#delete-post-{{ $post->id }}">
                                             <i class="fa-regular fa-trash-can"></i>Delete
                                         </button>
                                     </div>
                                 @else
-                                <div class="dropdown-menu">
-                                    {{-- if youre not the owner, show unfollow button --}}
-                                   <form action="" method="post">
-                                    @csrf
-                                    @method('DELETE')
+                                    <div class="dropdown-menu">
+                                        {{-- if youre not the owner, show unfollow button --}}
+                                        <form action="" method="post">
+                                            @csrf
+                                            @method('DELETE')
 
-                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#" >
-                                        Unfollow
-                                    </button>
-                                   </form>
-                                </div>
-
+                                            <button class="dropdown-item text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#">
+                                                Unfollow
+                                            </button>
+                                        </form>
+                                    </div>
                                 @endif
                             </div>
                             @include('users.post.contents.modals.delete')
@@ -79,20 +80,59 @@
                         <div class="col text-end">
                             {{-- categories --}}
                             {{-- {{$post->categoryPost}} --}}
-                           @foreach ($post->categoryPost as $category_post)
+                            @foreach ($post->categoryPost as $category_post)
                                 <div class="badge bg-secondary bg-opacity-50">
-                                    {{$category_post->category->name}}
+                                    {{ $category_post->category->name }}
                                 </div>
-                           @endforeach
+                            @endforeach
                         </div>
                     </div>
-                    <a href="#" class="text-decoration-none text-dark fw-bold">{{$post->user->name}}</a>
-                    &nbsp; <p class="d-inline fw-light">{{$post->description}}</p>
-                    <p class=" text-muted xsmall">{{$post->created_at->diffForHumans()}}</p>
+                    <a href="#" class="text-decoration-none text-dark fw-bold">{{ $post->user->name }}</a>
+                    &nbsp; <p class="d-inline fw-light">{{ $post->description }}</p>
+                    <p class=" text-muted xsmall">{{ $post->created_at->diffForHumans() }}</p>
 
-                    @include('users.post.contents.comments')
+                    <div class="mt-3">
+                        {{-- show all the comments --}}
+                        @if ($post->comments->isNotEmpty())
+                            <ul class="list-group mt-2">
+                                @foreach ($post->comments as $comment)
+                                    <li class="list-group-item border-0 p-0 mb-2">
+                                        <a href="#"
+                                            class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
+                                        &nbsp;
+                                        <p class="d-inline fw-bold">{{ $comment->body }}</p>
+
+                                        <form action="" method="post">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <span class="text-muted xsmall">
+                                                {{ $comment->created_at->diffForHumans() }}
+                                            </span>
+                                            @if ($comment->user->id == Auth::user()->id)
+                                                &middot;
+                                                <button type="submit"
+                                                    class="border-0 bg-transparent text-danger p-0 xsmall">Delete</button>
+                                            @endif
+                                        </form>
+                                    </li>
+
+                                @endforeach
+
+                            </ul>
+                        @endif
+
+                        <form action="{{ route('comment.store', $post->id) }}" method="post">
+                            @csrf
+
+                            <div class="input-group">
+                                <textarea name="body" id="" rows="1" class="form-control"></textarea>
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

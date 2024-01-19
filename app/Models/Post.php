@@ -15,4 +15,7 @@ class Post extends Model
     public function categoryPost(){
         return $this->hasMany(CategoryPost::class);
     }
+    public function comments(){
+        return $this->hasMany(Comment::class)->latest();
+    }
 }
