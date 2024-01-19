@@ -8,7 +8,7 @@
                     &nbsp;
                     <p class="d-inline fw-bold">{{ $comment->body}}</p>
 
-                    <form action="" method="post">
+                    <form action="{{route('comment.delete',$comment->id)}}" method="post">
                         @csrf
                         @method('DELETE')
 
@@ -22,7 +22,7 @@
                     </form>
                 </li>
                 <li class="list-group-item border-0 p-0 mb-2">
-                    @if ($loop->last)
+                    @if ($loop->last AND $post->comments->count() > 3)
                        <a href="{{route('post.show',$post->id)}}" class="text-decoration-none">View all comments ({{$post->comments->count()}}) </a>
                     @endif
                 </li>

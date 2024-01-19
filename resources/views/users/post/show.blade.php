@@ -102,7 +102,7 @@
                                         &nbsp;
                                         <p class="d-inline fw-bold">{{ $comment->body }}</p>
 
-                                        <form action="" method="post">
+                                        <form action="{{route('comment.delete',$comment->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
 
@@ -110,7 +110,7 @@
                                                 {{ $comment->created_at->diffForHumans() }}
                                             </span>
                                             @if ($comment->user->id == Auth::user()->id)
-                                                &middot;
+                                            &middot;
                                                 <button type="submit"
                                                     class="border-0 bg-transparent text-danger p-0 xsmall">Delete</button>
                                             @endif
