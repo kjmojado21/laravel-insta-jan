@@ -31,4 +31,7 @@
     <a href="#" class="text-decoration-none text-dark fw-bold">{{$post->user->name}}</a>
     &nbsp; <p class="d-inline fw-light">{{$post->description}}</p>
     <p class=" text-muted xsmall">{{$post->created_at->diffForHumans()}}</p>
+
+    {{-- comment section --}}
+    @include('users.post.contents.comments')
 </div>

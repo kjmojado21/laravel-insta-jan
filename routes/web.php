@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,8 @@ Route::group(["middleware" => "auth"], function () {
     Route::patch('/update/post/{id}',[PostController::class,'update'])->name('post.update');
     Route::delete('/delete/post/{id}',[PostController::class,'destroy'])->name('post.delete');
 
-
+    #comment
+    Route::post('/comment/store/{post_id}',[CommentController::class,'store'])->name('comment.store');
 
 
 
