@@ -9,3 +9,8 @@
     width: 9rem;
     object-fit: cover;
 }
+.avatar-sm {
+    height: 2rem;
+    width: 2rem;
+    object-fit: cover;
+}

@@ -4,7 +4,7 @@
             {{-- avatar --}}
             <a href="#">
                 @if ($post->user->avatar)
-                    <img src="#" alt="" class="rounded-circle avatar-sm">
+                    <img src="{{$post->user->avatar}}" alt="" class="rounded-circle avatar-sm">
                 @else
                     <i class="fa-solid fa-circle-user icon-sm text-secondary"></i>
                 @endif

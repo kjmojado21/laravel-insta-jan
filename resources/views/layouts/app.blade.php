@@ -77,7 +77,7 @@
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (Auth::user()->avatar)
-                                        <img src="#" alt="#" class="rounded-circle avatar-sm">
+                                        <img src="{{Auth::user()->avatar}}" alt="#" class="rounded-circle avatar-sm">
                                     @else
                                         <i class="fa-solid fa-circle-user icon-sm"></i>
                                     @endif
