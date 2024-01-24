@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -17,5 +18,11 @@ class Post extends Model
     }
     public function comments(){
         return $this->hasMany(Comment::class)->latest();
+    }
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+    public function isLiked(){
+        return $this->likes()->where('user_id',Auth::user()->id)->exists();
     }
 }

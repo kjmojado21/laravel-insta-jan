@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,12 @@ Route::group(["middleware" => "auth"], function () {
     Route::get('/profile/{id}/show',[ProfileController::class,'show'])->name('profile.show');
     Route::get('/profile/{id}/edit',[ProfileController::class,'edit'])->name('profile.edit');
     Route::patch('/profile/update',[ProfileController::class,'update'])->name('profile.update');
+
+    #like
+
+    Route::post('/like/{post_id}/store',[LikeController::class,'store'])->name('like.store');
+    Route::delete('/like/{post_id}/delete',[LikeController::class,'destroy'])->name('like.delete');
+
 
 
 
