@@ -85,6 +85,10 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     {{-- soon: admin controls --}}
+                                    <a href="" class="dropdown-item">
+                                        <i class="fa-solid fa-user-gear"></i>Admin
+                                    </a>
+                                    <hr class="dropdown-divider">
 
                                     <a href="{{route('profile.show',Auth::user()->id)}}" class="dropdown-item">
                                         <i class="fa-solid fa-circle-user text-dark"></i> Profile
@@ -113,7 +117,21 @@
            <div class="container">
             <div class="row justify-content-center">
                 {{-- Soon: admin controls --}}
-                {{-- <div class="col-3"></div> --}}
+                @if (request()->is('admin/*'))
+                <div class="col-3">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <i class="fa-solid fa-users"></i> User
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa-solid fa-newspaper"></i> Post
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <i class="fa-solid fa-tags"></i> Categories
+                        </a>
+                    </div>
+                </div>
+                @endif
 
                 <div class="col-9">
                     @yield('content')
