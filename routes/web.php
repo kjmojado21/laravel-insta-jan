@@ -5,6 +5,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+Use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,7 +51,14 @@ Route::group(["middleware" => "auth"], function () {
     Route::post('/follow/{user_id}/store',[FollowController::class,'store'])->name('follow.store');
     Route::delete('/follow/{user_id}/delete',[FollowController::class,'destroy'])->name('follow.delete');
 
+    Route::group(["as"=>"admin.","prefix"=>"admin/"],function(){
+        Route::get("users/index",[UsersController::class,'index'])->name('users.index');
+        Route::delete("users/{id}/deactivate",[UsersController::class,'deactivate'])->name('users.deactivate');
+        Route::patch("users/{id}/activate",[UsersController::class,'activate'])->name('users.activate');
 
+
+
+    });
 
 
 

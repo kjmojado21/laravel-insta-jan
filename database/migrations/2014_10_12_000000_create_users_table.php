@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id')
                 ->default(2)
                 ->comment('1:admin 2:user');
+
             $table->timestamps();
         });
     }

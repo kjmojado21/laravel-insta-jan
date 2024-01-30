@@ -85,7 +85,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     {{-- soon: admin controls --}}
-                                    <a href="" class="dropdown-item">
+                                <a href="{{route('admin.users.index')}}" class="dropdown-item">
                                         <i class="fa-solid fa-user-gear"></i>Admin
                                     </a>
                                     <hr class="dropdown-divider">
@@ -120,7 +120,7 @@
                 @if (request()->is('admin/*'))
                 <div class="col-3">
                     <div class="list-group">
-                        <a href="#" class="list-group-item">
+                        <a href="{{route('admin.users.index')}}" class="list-group-item">
                             <i class="fa-solid fa-users"></i> User
                         </a>
                         <a href="#" class="list-group-item">
